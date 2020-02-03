@@ -32,6 +32,7 @@ public class AvisoController {
 	private UnidadeService serviceUnidade;
 	
 	@ResponseStatus(code = HttpStatus.CREATED)
+	@JsonIgnore
 	@PostMapping("/unidade/{id}/avisos")
 	public ResponseEntity<Aviso> save(@PathVariable("id") Long id, @RequestBody Aviso aviso) {
 		Optional<Unidade> unidadeOptional = this.serviceUnidade.findById(id);
@@ -41,7 +42,7 @@ public class AvisoController {
 		}
 		return ResponseEntity.ok(aviso);
 	}
-	
+	@JsonIgnore
 	@GetMapping("/unidade/{id}/avisos")
 	public ResponseEntity<List<Aviso>> list() {
 		return ResponseEntity.ok(this.service.list());

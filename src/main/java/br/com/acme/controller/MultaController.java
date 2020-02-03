@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.acme.multas.Multa;
 import br.com.acme.service.MultaService;
 import br.com.acme.service.UnidadeService;
@@ -30,6 +32,7 @@ public class MultaController {
 	private UnidadeService serviceUnidade;
 	
 	@ResponseStatus(code = HttpStatus.CREATED)
+	@JsonIgnore
 	@PostMapping("/unidade/{id}/multa")
 	public ResponseEntity<Multa> save(@PathVariable("id") Long id, @RequestBody Multa multa) {
 		Optional<Unidade> unidadeOptional = this.serviceUnidade.findById(id);
@@ -39,7 +42,7 @@ public class MultaController {
 		}
 		return ResponseEntity.ok(multa);
 	}
-	
+	@JsonIgnore
 	@GetMapping("/unidade/{id}/aviso")
 	public ResponseEntity<List<Multa>> list() {
 		return ResponseEntity.ok(this.service.list());
